@@ -4,3 +4,8 @@ spring:
     username: ${DATABASE_USERNAME:wheel}
     password: ${DATABASE_PASSWORD:wheel}
     driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
