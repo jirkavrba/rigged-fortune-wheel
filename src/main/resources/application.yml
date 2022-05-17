@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/wheel}
+    username: ${DATABASE_USERNAME:wheel}
+    password: ${DATABASE_PASSWORD:wheel}
+    driver-class-name: org.postgresql.Driver
