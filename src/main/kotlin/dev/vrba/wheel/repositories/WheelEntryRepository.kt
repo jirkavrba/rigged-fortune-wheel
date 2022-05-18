@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface WheelEntriesRepository : CrudRepository<WheelEntry, UUID>
+interface WheelEntryRepository : CrudRepository<WheelEntry, UUID>
