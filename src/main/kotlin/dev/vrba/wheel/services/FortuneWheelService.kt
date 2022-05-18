@@ -5,7 +5,6 @@ import dev.vrba.wheel.entities.WheelEntry
 import dev.vrba.wheel.exceptions.EntityNotFoundException
 import dev.vrba.wheel.repositories.SpinQueueRepository
 import dev.vrba.wheel.repositories.WheelEntryRepository
-import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
@@ -32,7 +31,7 @@ class FortuneWheelService(
 
     fun spin(): WheelEntry {
         // If there are no pre-determined spins in the queue, fallback to random selection
-        val current = spinQueueRepository.findFirst(Sort.by("id"))
+        val current = spinQueueRepository.findFirstByOrderById()
             ?: return entryRepository.findAll()
                 .shuffled()
                 .first()
