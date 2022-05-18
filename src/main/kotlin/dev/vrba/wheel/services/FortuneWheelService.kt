@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class WheelEntryService(private val repository: WheelEntryRepository) {
+class FortuneWheelService(private val repository: WheelEntryRepository) {
 
     fun getWheelEntries(): Iterable<WheelEntry> {
         return repository.findAll()
