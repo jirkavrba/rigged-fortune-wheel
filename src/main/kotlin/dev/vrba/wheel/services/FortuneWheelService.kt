@@ -2,25 +2,45 @@ package dev.vrba.wheel.services
 
 import dev.vrba.wheel.entities.WheelEntry
 import dev.vrba.wheel.exceptions.EntityNotFoundException
+import dev.vrba.wheel.repositories.SpinQueueRepository
 import dev.vrba.wheel.repositories.WheelEntryRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class FortuneWheelService(private val repository: WheelEntryRepository) {
+class FortuneWheelService(
+    private val entryRepository: WheelEntryRepository,
+    private val spinQueueRepository: SpinQueueRepository
+) {
 
     fun getWheelEntries(): Iterable<WheelEntry> {
-        return repository.findAll()
+        return entryRepository.findAll()
     }
 
     fun addWheelEntry(title: String, description: String, color: String): WheelEntry {
         val entry = WheelEntry(UUID.randomUUID(), title, description, color)
-        return repository.save(entry)
+        return entryRepository.save(entry)
     }
 
     fun removeWheelEntity(id: UUID) {
-        val entry = repository.findByIdOrNull(id) ?: throw EntityNotFoundException
-        repository.delete(entry)
+        val entry = entryRepository.findByIdOrNull(id) ?: throw EntityNotFoundException
+        entryRepository.delete(entry)
+    }
+
+    fun spin(): WheelEntry {
+        // If there are no pre-determined spins in the queue, fallback to random selection
+        val current = spinQueueRepository.findByPreviousIsNull()
+            ?: return entryRepository.findAll()
+                .shuffled()
+                .first()
+
+        val next = spinQueueRepository.findByPrevious(current.id)
+        next.previous = null
+
+        spinQueueRepository.save(next)
+        spinQueueRepository.delete(current)
+
+        return current.entry
     }
 }

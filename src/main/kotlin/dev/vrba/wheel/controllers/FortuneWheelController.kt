@@ -32,4 +32,9 @@ class FortuneWheelController(private val service: FortuneWheelService) {
         service.removeWheelEntity(id)
         return ResponseEntity.ok(service.getWheelEntries())
     }
+
+    @PostMapping("/spin")
+    fun spin(): ResponseEntity<WheelEntry> {
+        return ResponseEntity.ok(service.spin())
+    }
 }
