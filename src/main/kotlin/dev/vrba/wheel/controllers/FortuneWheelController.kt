@@ -38,7 +38,7 @@ class FortuneWheelController(private val service: FortuneWheelService) {
         return ResponseEntity.ok(service.getWheelEntries())
     }
 
-    @GetMapping
+    @GetMapping("/queue")
     fun getSpinQueue(): ResponseEntity<List<WheelEntry>> {
         return ResponseEntity.ok(service.getMappedSpinQueue())
     }
@@ -46,7 +46,7 @@ class FortuneWheelController(private val service: FortuneWheelService) {
     data class UpdateSpinQueueRequest(val entries: List<UUID>)
 
     @PostMapping("/queue/update")
-    fun updateSpinQueue() {
-        TODO()
+    fun updateSpinQueue(@RequestBody request: UpdateSpinQueueRequest): ResponseEntity<List<WheelEntry>> {
+        return ResponseEntity.ok(service.updateMappingQueue(request.entries))
     }
 }

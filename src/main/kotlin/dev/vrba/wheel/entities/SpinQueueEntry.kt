@@ -7,12 +7,10 @@ import javax.persistence.*
 @Table(name = "spins_queue")
 class SpinQueueEntry(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    var id: Int = 0,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wheel_entry_id")
     val entry: WheelEntry,
-
-    @Column(nullable = false, unique = true)
-    var previous: UUID? = null
 )

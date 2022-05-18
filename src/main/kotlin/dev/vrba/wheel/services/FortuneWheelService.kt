@@ -5,6 +5,7 @@ import dev.vrba.wheel.entities.WheelEntry
 import dev.vrba.wheel.exceptions.EntityNotFoundException
 import dev.vrba.wheel.repositories.SpinQueueRepository
 import dev.vrba.wheel.repositories.WheelEntryRepository
+import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
@@ -31,15 +32,11 @@ class FortuneWheelService(
 
     fun spin(): WheelEntry {
         // If there are no pre-determined spins in the queue, fallback to random selection
-        val current = spinQueueRepository.findByPreviousIsNull()
+        val current = spinQueueRepository.findFirst(Sort.by("id"))
             ?: return entryRepository.findAll()
                 .shuffled()
                 .first()
 
-        val next = spinQueueRepository.findByPrevious(current.id)
-        next.previous = null
-
-        spinQueueRepository.save(next)
         spinQueueRepository.delete(current)
 
         return current.entry
@@ -52,11 +49,17 @@ class FortuneWheelService(
             return emptyList()
         }
 
-        // Find the last entry that no other entry points to
-        val chain = queue.map { it.previous }
-        val last = queue.first { it.id !in chain }
+        return queue
+            .sortedByDescending { it.id }
+            .map { it.entry }
+    }
 
-        // And link the whole chain from there
-        TODO()
+    fun updateMappingQueue(entries: List<UUID>): List<WheelEntry> {
+        val wheel = entryRepository.findAllById(entries)
+
+        return entries
+            .map { id -> wheel.first { it.id == id }}
+            .map { entry -> spinQueueRepository.save(SpinQueueEntry(0, entry = entry)) }
+            .map { spin -> spin.entry }
     }
 }
