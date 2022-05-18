@@ -14,8 +14,8 @@ class FortuneWheelService(private val repository: WheelEntryRepository) {
         return repository.findAll()
     }
 
-    fun addWheelEntry(title: String, color: String): WheelEntry {
-        val entry = WheelEntry(id = UUID.randomUUID(), title = title, color = color)
+    fun addWheelEntry(title: String, description: String, color: String): WheelEntry {
+        val entry = WheelEntry(UUID.randomUUID(), title, description, color)
         return repository.save(entry)
     }
 
@@ -23,5 +23,4 @@ class FortuneWheelService(private val repository: WheelEntryRepository) {
         val entry = repository.findByIdOrNull(id) ?: throw EntityNotFoundException
         repository.delete(entry)
     }
-
 }

@@ -8,4 +8,9 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+
+server:
+  error:
+    include-stacktrace: never
+    include-exception: false

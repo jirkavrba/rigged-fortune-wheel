@@ -10,7 +10,11 @@ import java.util.*
 @RequestMapping("/api/v1/wheel")
 class FortuneWheelController(private val service: FortuneWheelService) {
 
-    data class CreateEntryRequest(val title: String, val color: String)
+    data class CreateEntryRequest(
+        val title: String,
+        val description: String,
+        val color: String
+    )
 
     @GetMapping("/entries")
     fun getEntries(): ResponseEntity<Iterable<WheelEntry>> {
@@ -19,7 +23,7 @@ class FortuneWheelController(private val service: FortuneWheelService) {
 
     @PostMapping("/entries/add")
     fun addEntry(@RequestBody request: CreateEntryRequest): ResponseEntity<Iterable<WheelEntry>> {
-        service.addWheelEntry(request.title, request.color)
+        service.addWheelEntry(request.title, request.description, request.color)
         return ResponseEntity.ok(service.getWheelEntries())
     }
 
