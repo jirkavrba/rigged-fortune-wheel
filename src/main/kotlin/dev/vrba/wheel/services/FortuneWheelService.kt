@@ -1,5 +1,6 @@
 package dev.vrba.wheel.services
 
+import dev.vrba.wheel.entities.SpinQueueEntry
 import dev.vrba.wheel.entities.WheelEntry
 import dev.vrba.wheel.exceptions.EntityNotFoundException
 import dev.vrba.wheel.repositories.SpinQueueRepository
@@ -42,5 +43,20 @@ class FortuneWheelService(
         spinQueueRepository.delete(current)
 
         return current.entry
+    }
+
+    fun getMappedSpinQueue(): List<WheelEntry> {
+        val queue = spinQueueRepository.findAll().toSet()
+
+        if (queue.isEmpty()) {
+            return emptyList()
+        }
+
+        // Find the last entry that no other entry points to
+        val chain = queue.map { it.previous }
+        val last = queue.first { it.id !in chain }
+
+        // And link the whole chain from there
+        TODO()
     }
 }

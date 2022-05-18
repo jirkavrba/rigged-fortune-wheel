@@ -10,6 +10,11 @@ import java.util.*
 @RequestMapping("/api/v1/wheel")
 class FortuneWheelController(private val service: FortuneWheelService) {
 
+    @PostMapping("/spin")
+    fun spin(): ResponseEntity<WheelEntry> {
+        return ResponseEntity.ok(service.spin())
+    }
+
     data class CreateEntryRequest(
         val title: String,
         val description: String,
@@ -33,8 +38,15 @@ class FortuneWheelController(private val service: FortuneWheelService) {
         return ResponseEntity.ok(service.getWheelEntries())
     }
 
-    @PostMapping("/spin")
-    fun spin(): ResponseEntity<WheelEntry> {
-        return ResponseEntity.ok(service.spin())
+    @GetMapping
+    fun getSpinQueue(): ResponseEntity<List<WheelEntry>> {
+        return ResponseEntity.ok(service.getMappedSpinQueue())
+    }
+
+    data class UpdateSpinQueueRequest(val entries: List<UUID>)
+
+    @PostMapping("/queue/update")
+    fun updateSpinQueue() {
+        TODO()
     }
 }

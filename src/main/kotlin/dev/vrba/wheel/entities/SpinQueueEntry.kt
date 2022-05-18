@@ -9,7 +9,7 @@ class SpinQueueEntry(
     @Id
     val id: UUID = UUID.randomUUID(),
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wheel_entry_id")
     val entry: WheelEntry,
 
