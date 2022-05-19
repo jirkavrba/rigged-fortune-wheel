@@ -34,12 +34,12 @@ function App() {
 
     return (
         <div className="App">
+            <h1>Kolo štěstí</h1>
             {
                 loading
                 ? <h1>Loading...</h1>
                 : (
                     <AppContext.Provider value={state}>
-                        <h1>Kolo štěstí</h1>
                         <Wheel/>
                     </AppContext.Provider>
                 )
