@@ -36,7 +36,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1>Kolo štěstí</h1>
+            <h1 className="text-4xl font-black text-center mt-10 mb-20">Kolo štěstí</h1>
             {
                 loading
                 ? <Loader/>
