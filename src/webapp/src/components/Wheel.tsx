@@ -22,6 +22,17 @@ const renderWheel = (canvas: HTMLCanvasElement, entries: Array<Entry>): void => 
         context.fill();
     });
 
+    // Draw lines between segments
+    entries.map((entry, i) => {
+        context.beginPath();
+        context.moveTo(center, center);
+        context.arc(center, center, center, i * step, (i + 1) * step);
+        context.strokeStyle = "#ffffff";
+        context.lineWidth = 10;
+        context.moveTo(center, center);
+        context.stroke();
+    });
+
     // Draw the inner circle (to make the wheel look hollow)
     context.beginPath();
     context.arc(center, center, center * 0.3, 0, 2 * Math.PI);
@@ -77,7 +88,7 @@ const Wheel: FC = () => {
                         ring-8 ring-black border-8 border-white shadow-xl rounded-full ${spinning ? 'text-gray-400' : 'hover:shadow-2xl hover:text-black'}`} disabled={spinning}>
                             {spinning ? 'Woooo' : 'Zatočit'}
                         </button>
-                        <div className="absolute right-0 w-0 h-0 border-[2rem] border-transparent border-r-black" style={{top: "calc(50% - 2rem)"}}/>
+                        <div className="absolute right-0 w-0 h-0 border-[1.5rem] border-transparent border-r-black" style={{top: "calc(50% - 1.5rem)"}}/>
                     </div>
                 </div>
             </div>
