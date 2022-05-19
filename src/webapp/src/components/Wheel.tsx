@@ -44,7 +44,8 @@ const Wheel: FC = () => {
         const spins = angle > 0 ? 10 : -10;
 
         const step = 360 / state.entries.length;
-        const rotation = -(index * step + (step / 2) + 360 * spins);
+        const noise = Math.random() * (step / 2) - (step / 4);
+        const rotation = -(index * step + (step / 2) + 360 * spins + noise);
 
         setAngle(rotation);
         setSelected(price);
@@ -73,12 +74,11 @@ const Wheel: FC = () => {
                     <div className={`ml-20 relative transition transform ${spinning ? 'scale-75' : 'scale-100'}`}>
                         <canvas ref={canvas} className="transform transition w-128 h-128"/>
                         <button onClick={spin} className={`absolute w-full h-full lack left-0 top-0 text-gray-500 uppercase tracking-wide font-black transition transform
-                        ring-8 ring-white shadow-2xl rounded-full ${spinning ? 'text-gray-400' : 'hover:text-black'}`} disabled={spinning}>
-                            {spinning ? '...' : 'Zatočit'}
+                        ring-8 ring-black border-8 border-white shadow-xl rounded-full ${spinning ? 'text-gray-400' : 'hover:shadow-2xl hover:text-black'}`} disabled={spinning}>
+                            {spinning ? 'Woooo' : 'Zatočit'}
                         </button>
+                        <div className="absolute right-0 w-0 h-0 border-[2rem] border-transparent border-r-black" style={{top: "calc(50% - 2rem)"}}/>
                     </div>
-
-                    <div className="text-6xl ml-5 animate-pulse">👈</div>
                 </div>
             </div>
             <PriceModal active={modalShown} title={selected?.title} description={selected?.description} onClose={() => setModalShown(false)} />
