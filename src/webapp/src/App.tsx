@@ -3,9 +3,10 @@ import Wheel from "./components/Wheel";
 import Loader from "./components/Loader";
 
 export interface Entry {
-    text: String,
-    description: String,
-    color: String
+    id: string,
+    title: string,
+    description: string,
+    color: string
 }
 
 export interface AppContextState {
