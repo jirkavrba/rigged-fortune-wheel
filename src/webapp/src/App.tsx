@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Wheel from "./components/Wheel";
+import Loader from "./components/Loader";
 
 export interface Entry {
     text: String,
@@ -37,7 +38,7 @@ function App() {
             <h1>Kolo štěstí</h1>
             {
                 loading
-                ? <h1>Loading...</h1>
+                ? <Loader/>
                 : (
                     <AppContext.Provider value={state}>
                         <Wheel/>
