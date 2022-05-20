@@ -1,6 +1,5 @@
 package dev.vrba.wheel.entities
 
-import java.util.*
 import javax.persistence.*
 
 @Entity

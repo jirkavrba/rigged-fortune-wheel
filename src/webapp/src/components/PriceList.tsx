@@ -18,7 +18,8 @@ const PriceList: FC<PriceListProps> = ({onSelect, selected}) => {
     return (
         <div className="p-5">
             {entries.map(entry =>
-                <Price key={entry.id} selected={selected === entry.id} title={entry.title} color={entry.color} onClick={() => select(entry.id)} />
+                <Price key={entry.id} selected={selected === entry.id} title={entry.title} color={entry.color}
+                       onClick={() => select(entry.id)}/>
             )}
         </div>
     );

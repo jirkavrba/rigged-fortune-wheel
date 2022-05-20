@@ -47,22 +47,28 @@ const QueueEditor: FC<QueueEditorProps> = ({entries}: QueueEditorProps) => {
         setModalShown(false);
     }
 
-    useEffect(() => { fetchQueue(); }, []);
+    useEffect(() => {
+        fetchQueue();
+    }, []);
 
     return (
         <div className="bg-white shadow-lg rounded-xl p-5">
             <h1 className="text-center uppercase tracking-widest text-gray-500 font-black">Fronta</h1>
             <ul className="flex flex-col">
-                { queue.map((item, i) =>
+                {queue.map((item, i) =>
                     <li key={i} className="flex flex-row items-center my-3 p-3 border rounded-xl">
                         <div className="w-8 h-8 rounded-full mr-4" style={{backgroundColor: entry(item).color}}></div>
                         <div className="flex flex-col mr-3">
                             <div className="font-black">{entry(item).title}</div>
                             <div className="text-gray-500 text-xs">{entry(item).description}</div>
                         </div>
-                        <button onClick={() => {removeQueueItem(i)}} className="bg-red-500 text-white text-xs px-2 py-1 rounded-lg font-black uppercase ml-auto">Smazat</button>
+                        <button onClick={() => {
+                            removeQueueItem(i)
+                        }}
+                                className="bg-red-500 text-white text-xs px-2 py-1 rounded-lg font-black uppercase ml-auto">Smazat
+                        </button>
                     </li>
-                ) }
+                )}
 
                 <li className="flex flex-row items-center my-3 p-3 border border-dashed rounded-xl">
                     <div className="transition w-8 h-8 rounded-full mr-4 bg-gray-200"></div>
@@ -74,15 +80,16 @@ const QueueEditor: FC<QueueEditorProps> = ({entries}: QueueEditorProps) => {
 
                 <li className="flex flex-row justify-center items-center">
                     <button disabled={!dirty} onClick={() => updateQueue()} className={`mr-3 px-10 py-4 text-white uppercase font-black tracking-wide rounded-xl transition transform 
-                        ${dirty ? 'hover:scale-95 bg-red-500 shadow-xl' : 'bg-gray-300 shadow-lg' }`}>
+                        ${dirty ? 'hover:scale-95 bg-red-500 shadow-xl' : 'bg-gray-300 shadow-lg'}`}>
                         Uložit změny
                     </button>
-                    <button onClick={() => setModalShown(true)} className="px-10 py-4 bg-black text-white uppercase font-black tracking-wide rounded-xl shadow-xl transition transform hover:scale-95">
+                    <button onClick={() => setModalShown(true)}
+                            className="px-10 py-4 bg-black text-white uppercase font-black tracking-wide rounded-xl shadow-xl transition transform hover:scale-95">
                         Přidat položku do fronty
                     </button>
                 </li>
             </ul>
-            <QueueEditorModal active={modalShown} onClose={() => closeModal()} onSubmit={(id) => addQueueItem(id)} />
+            <QueueEditorModal active={modalShown} onClose={() => closeModal()} onSubmit={(id) => addQueueItem(id)}/>
         </div>
     );
 };

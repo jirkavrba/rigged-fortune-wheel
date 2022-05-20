@@ -57,7 +57,7 @@ class FortuneWheelService(
         val wheel = entryRepository.findAllById(entries)
 
         return entries
-            .map { id -> wheel.first { it.id == id }}
+            .map { id -> wheel.first { it.id == id } }
             .map { entry -> spinQueueRepository.save(SpinQueueEntry(0, entry = entry)) }
             .map { spin -> spin.entry }
     }

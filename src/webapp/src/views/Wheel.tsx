@@ -1,4 +1,4 @@
-import React, {FC, useContext, useEffect, useRef, useState} from "react";
+import React, {FC, useContext, useEffect, useState} from "react";
 import {AppContext, Entry} from "../App";
 import PriceList from "../components/PriceList";
 import PriceModal from "../components/PriceModal";
@@ -14,7 +14,7 @@ const renderWheel = (canvas: HTMLCanvasElement, entries: Array<Entry>): void => 
     const context: CanvasRenderingContext2D = canvas.getContext("2d")!;
     const step = (2 * Math.PI / entries.length);
 
-        // Draw segments
+    // Draw segments
     entries.map((entry, i) => {
         context.beginPath();
         context.moveTo(center, center);
@@ -52,7 +52,7 @@ const Wheel: FC = () => {
     const spin = async () => {
         const price: Entry = await fetch("/api/v1/wheel/spin", {method: "POST"}).then(response => response.json());
 
-        const index =  state.entries.findIndex(e => e.id == price.id);
+        const index = state.entries.findIndex(e => e.id == price.id);
         const spins = angle > 0 ? 10 : -10;
 
         const step = 360 / state.entries.length;
@@ -68,8 +68,12 @@ const Wheel: FC = () => {
             canvas.current.style.transform = `rotate(${rotation}deg)`;
         }
 
-        setTimeout(() => { setSpinning(false); }, 5000);
-        setTimeout(() => { setModalShown(true); }, 5500);
+        setTimeout(() => {
+            setSpinning(false);
+        }, 5000);
+        setTimeout(() => {
+            setModalShown(true);
+        }, 5500);
     }
 
     useEffect(() => {
@@ -81,22 +85,26 @@ const Wheel: FC = () => {
         <>
             <div className="flex flex-col items-center justify-between transition filter">
                 <div className="flex flex-row items-center justify-around">
-                    <PriceList />
+                    <PriceList/>
 
                     <div className={`ml-20 relative transition transform ${spinning ? 'scale-75' : 'scale-100'}`}>
                         <canvas ref={canvas} className="transform transition w-128 h-128"/>
                         <button onClick={spin} className={`absolute w-full h-full lack left-0 top-0 text-gray-500 uppercase tracking-wide font-black transition transform
-                        ring-8 ring-black border-8 border-white shadow-xl rounded-full ${spinning ? 'text-gray-400' : 'hover:shadow-2xl hover:text-black'}`} disabled={spinning}>
+                        ring-8 ring-black border-8 border-white shadow-xl rounded-full ${spinning ? 'text-gray-400' : 'hover:shadow-2xl hover:text-black'}`}
+                                disabled={spinning}>
                             {spinning ? 'Woooo' : 'Zatočit'}
                         </button>
-                        <div className="absolute right-0 w-0 h-0 border-[1.5rem] border-transparent border-r-black" style={{top: "calc(50% - 1.5rem)"}}/>
+                        <div className="absolute right-0 w-0 h-0 border-[1.5rem] border-transparent border-r-black"
+                             style={{top: "calc(50% - 1.5rem)"}}/>
                     </div>
                 </div>
 
             </div>
-            <PriceModal active={modalShown} title={selected?.title} description={selected?.description} onClose={() => setModalShown(false)} />
+            <PriceModal active={modalShown} title={selected?.title} description={selected?.description}
+                        onClose={() => setModalShown(false)}/>
             <Link to="/settings" className="fixed bottom-5 w-full">
-                <div className="uppercase text-sm text-gray-500 opacity-10 text-center font-bold tracking-wide transition hover:opacity-100">
+                <div
+                    className="uppercase text-sm text-gray-500 opacity-10 text-center font-bold tracking-wide transition hover:opacity-100">
                     Nastavení
                 </div>
             </Link>
