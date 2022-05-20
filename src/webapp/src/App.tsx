@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Wheel from "./components/Wheel";
+import {Routes, Route, HashRouter} from "react-router-dom";
+import Wheel from "./views/Wheel";
 import Loader from "./components/Loader";
+import Settings from "./views/Settings";
 
 export interface Entry {
     id: string,
@@ -42,7 +44,12 @@ function App() {
                 ? <Loader/>
                 : (
                     <AppContext.Provider value={state}>
-                        <Wheel/>
+                        <HashRouter>
+                            <Routes>
+                                <Route index element={<Wheel/>}/>
+                                <Route path="/settings" element={<Settings/>}/>
+                            </Routes>
+                        </HashRouter>
                     </AppContext.Provider>
                 )
             }

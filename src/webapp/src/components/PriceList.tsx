@@ -1,5 +1,6 @@
 import {FC, useContext} from "react";
 import {AppContext} from "../App";
+import {Link} from "react-router-dom";
 
 const PriceList: FC = () => {
     const {entries} = useContext(AppContext);
@@ -15,6 +16,11 @@ const PriceList: FC = () => {
                         </li>
                 ) }
             </ul>
+            <Link to="/settings">
+                <div className="uppercase text-sm text-gray-200 text-center font-bold tracking-wide transition hover:text-gray-500">
+                    Nastavení
+                </div>
+            </Link>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React, {FC, useContext, useEffect, useRef, useState} from "react";
 import {AppContext, Entry} from "../App";
-import PriceList from "./PriceList";
-import PriceModal from "./PriceModal";
+import PriceList from "../components/PriceList";
+import PriceModal from "../components/PriceModal";
 
 const renderWheel = (canvas: HTMLCanvasElement, entries: Array<Entry>): void => {
     const size = 512;
