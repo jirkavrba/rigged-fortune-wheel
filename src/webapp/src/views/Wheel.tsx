@@ -2,6 +2,7 @@ import React, {FC, useContext, useEffect, useRef, useState} from "react";
 import {AppContext, Entry} from "../App";
 import PriceList from "../components/PriceList";
 import PriceModal from "../components/PriceModal";
+import {Link} from "react-router-dom";
 
 const renderWheel = (canvas: HTMLCanvasElement, entries: Array<Entry>): void => {
     const size = 512;
@@ -91,6 +92,12 @@ const Wheel: FC = () => {
                         <div className="absolute right-0 w-0 h-0 border-[1.5rem] border-transparent border-r-black" style={{top: "calc(50% - 1.5rem)"}}/>
                     </div>
                 </div>
+
+                <Link to="/settings" className="block mt-10">
+                    <div className="uppercase text-sm text-gray-200 text-center font-bold tracking-wide transition hover:text-gray-500">
+                        Nastavení
+                    </div>
+                </Link>
             </div>
             <PriceModal active={modalShown} title={selected?.title} description={selected?.description} onClose={() => setModalShown(false)} />
         </>

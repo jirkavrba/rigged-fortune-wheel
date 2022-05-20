@@ -25,7 +25,8 @@ const PriceEditor: FC<PriceEditorProps> = ({entries, onChange}: PriceEditorProps
     }
 
     return (
-        <div className="bg-white shadow-lg rounded-xl p-5 max-w-1/2">
+        <div className="bg-white shadow-lg rounded-xl p-5">
+            <h1 className="text-center uppercase tracking-widest text-gray-500 font-black">Položky</h1>
             <ul className="flex flex-col">
                 { entries.map((entry, i) =>
                     <li key={i} className="flex flex-row items-center my-3 p-3 border rounded-xl">
