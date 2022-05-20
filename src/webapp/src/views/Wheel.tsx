@@ -96,7 +96,7 @@ const Wheel: FC = () => {
             </div>
             <PriceModal active={modalShown} title={selected?.title} description={selected?.description} onClose={() => setModalShown(false)} />
             <Link to="/settings" className="fixed bottom-5 w-full">
-                <div className="uppercase text-sm text-gray-100 text-center font-bold tracking-wide transition hover:text-black">
+                <div className="uppercase text-sm text-gray-500 opacity-10 text-center font-bold tracking-wide transition hover:opacity-100">
                     Nastavení
                 </div>
             </Link>
