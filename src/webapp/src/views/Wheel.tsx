@@ -93,13 +93,13 @@ const Wheel: FC = () => {
                     </div>
                 </div>
 
-                <Link to="/settings" className="block mt-10">
-                    <div className="uppercase text-sm text-gray-200 text-center font-bold tracking-wide transition hover:text-gray-500">
-                        Nastavení
-                    </div>
-                </Link>
             </div>
             <PriceModal active={modalShown} title={selected?.title} description={selected?.description} onClose={() => setModalShown(false)} />
+            <Link to="/settings" className="fixed bottom-5 w-full">
+                <div className="uppercase text-sm text-gray-100 text-center font-bold tracking-wide transition hover:text-black">
+                    Nastavení
+                </div>
+            </Link>
         </>
     );
 }

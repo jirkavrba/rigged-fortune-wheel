@@ -1,7 +1,6 @@
 import {Entry} from "../App";
 import {FC, useEffect, useState} from "react";
 import QueueEditorModal from "./QueueEditorModal";
-import {setSelectionRange} from "@testing-library/user-event/dist/utils";
 
 interface QueueEditorProps {
     entries: Array<Entry>,
