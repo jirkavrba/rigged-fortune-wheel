@@ -25,16 +25,16 @@ function App() {
     const [loading, setLoading] = useState<boolean>(true);
     const [state, setState] = useState<AppContextState>(initialState);
 
-    const fetchEntries = async (): Promise<Array<Entry>> => {
-        return await fetch("/api/v1/wheel/entries").then(response => response.json());
+    const updateEntries = () => {
+        setLoading(true);
+
+        fetch("/api/v1/wheel/entries")
+            .then(response => response.json())
+            .then(entries => setState(current => ({...current, entries})))
+            .finally(() => setLoading(false));
     }
 
-    useEffect(() => {
-        fetchEntries().then(entries => {
-            setState(current => ({...current, entries}));
-            setLoading(false);
-        });
-    },[]);
+    useEffect(() => { updateEntries(); } ,[]);
 
     return (
         <div className="App">
@@ -47,7 +47,7 @@ function App() {
                         <HashRouter>
                             <Routes>
                                 <Route index element={<Wheel/>}/>
-                                <Route path="/settings" element={<Settings/>}/>
+                                <Route path="/settings" element={<Settings onChange={updateEntries}/>}/>
                             </Routes>
                         </HashRouter>
                     </AppContext.Provider>
